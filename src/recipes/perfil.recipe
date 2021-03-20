@@ -1,0 +1,96 @@
+#!/usr/bin/env python2
+# vim:fileencoding=utf-8
+from __future__ import unicode_literals, division, absolute_import, print_function
+from calibre.web.feeds.news import BasicNewsRecipe
+from calibre import strftime
+
+class AdvancedUserRecipe1572824592(BasicNewsRecipe):
+    title = 'Diario Perfil'
+    oldest_article = 1
+    max_articles_per_feed = 50
+    remove_empty_feeds = True
+    publication_type = 'newspaper'
+
+    compress_news_images = True
+    scale_news_images_to_device = True
+    compress_news_images_max_size = 10  # kB
+    scale_news_images = True
+    handle_gzip = True
+
+    # To get all the data (images)
+    auto_cleanup = False
+
+    keep_only_tags = [
+        dict(name='header', class_='articulo-header'),
+        dict(name='figure', class_='figure'),
+        dict(name='div', class_='fecha-autor'),
+        dict(name='div', class_='news-content'),
+    ]
+
+    remove_tags = [
+        dict(name='div', class_='noticias-relacionadas'),
+        dict(name='div', class_='tags'),
+        dict(name='div', class_='social-topsharing')
+    ]
+
+    remove_attributes = ['style', 'font']
+
+    no_stylesheets = True
+
+    extra_css = """
+      .articulo-header .hat {
+        line-height: .9em;
+        line-height: .9em;
+        font-weight: bold
+      }
+      .articulo-header h1 {
+        line-height: 1.1em;
+        margin: 0 0 .5em 0;
+      }
+      .articulo-header h2 {
+        line-height: .7em;
+        line-height: .7em;
+        color: #666666;
+        margin: 0 0 1em 0;
+      }
+      .figcaption {
+        font-style: italic;
+        font-size: .9em;
+        margin-bottom: .5em;
+      }
+    """
+
+    # Images on hightlights view
+    def populate_article_metadata(self, article, soup, first):
+      if first and hasattr(self, 'add_toc_thumbnail'):
+        picdiv = soup.find('img')
+        if picdiv is not None:
+          self.add_toc_thumbnail(article, picdiv['src'])
+
+    feeds = [
+        ('Ultimo momento', 'https://www.perfil.com/feed'),
+        ('Pol\xedtica', 'https://www.perfil.com/feed/politica'),
+        ('Econom\xeda', 'https://www.perfil.com/feed/economia'),
+        ('Internacionales', 'https://www.perfil.com/feed/internacionales'),
+        ('Opini\xf3n', 'https://www.perfil.com/feed/opinion'),
+        ('Sociedad', 'https://www.perfil.com/feed/sociedad'),
+        ('Espect\xf3culos', 'https://www.perfil.com/feed/espectaculos'),
+        ('Ciencia', 'https://www.perfil.com/feed/ciencia'),
+    ]
+
+    def preprocess_html(self, soup):
+        for figCaption in soup.findAll(['figcaption']):
+            figCaption.name = 'div'
+            figCaption['class'] = 'figcaption'
+
+        return soup
+
+    def postprocess_html(self, soup, first_fetch):
+        for t in soup.findAll(['a']):
+            t.name = 'strong'
+
+        nonBreakSpace = u'\xa0'
+        for empty in soup.findAll('p', string=nonBreakSpace):
+            empty.extract()
+
+        return soup

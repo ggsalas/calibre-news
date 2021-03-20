@@ -1,0 +1,15 @@
+#!/usr/bin/env python
+# vim:fileencoding=utf-8
+from calibre.web.feeds.news import AutomaticNewsRecipe
+
+class BasicUserRecipe1616026409(AutomaticNewsRecipe):
+    title          = 'World weekly'
+    oldest_article = 7
+    max_articles_per_feed = 100
+    auto_cleanup   = True
+    publication_type = 'newspaper'
+
+    feeds          = [
+        ('NYT Top Stories', 'https://www.freefullrss.com/feed.php?url=https%3A%2F%2Frss.nytimes.com%2Fservices%2Fxml%2Frss%2Fnyt%2FHomePage.xml&max=10&links=preserve&exc=&submit=Create+Full+Text+RSS'),
+        ('Buenos Aires Times', 'https://www.freefullrss.com/feed.php?url=https%3A%2F%2Fwww.batimes.com.ar%2Ffeed&max=10&links=preserve&exc=&submit=Create+Full+Text+RSS'),
+    ]

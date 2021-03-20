@@ -1,0 +1,14 @@
+#!/usr/bin/env python
+# vim:fileencoding=utf-8
+from calibre.web.feeds.news import AutomaticNewsRecipe
+
+class BasicUserRecipe1616026409(AutomaticNewsRecipe):
+    title          = 'Politica Semanal'
+    oldest_article = 7
+    max_articles_per_feed = 100
+    auto_cleanup   = True
+    publication_type = 'newspaper'
+
+    feeds          = [
+        ('Asis', 'https://jorgeasisdigital.com/feed'),
+    ]

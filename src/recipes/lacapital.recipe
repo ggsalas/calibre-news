@@ -1,0 +1,81 @@
+#!/usr/bin/env python2
+# vim:fileencoding=utf-8
+from __future__ import unicode_literals, division, absolute_import, print_function
+from calibre.web.feeds.news import AutomaticNewsRecipe
+from calibre import strftime
+
+class BasicUserRecipe1572999042(AutomaticNewsRecipe):
+    title = 'Diario La Capital de Mar del Plata'
+    oldest_article = 1
+    max_articles_per_feed = 50
+    cover_url = strftime('http://www.lacapitalmdp.com/tapas/%Y/%m/%d/grande.jpg')
+    remove_empty_feeds = True
+    publication_type = 'newspaper'
+
+    use_embedded_content = False
+
+    compress_news_images = True
+    scale_news_images_to_device = True
+    compress_news_images_max_size = 10  # kB
+    scale_news_images = True
+    handle_gzip = True
+
+    # To get all the data (images)
+    auto_cleanup = False
+
+    keep_only_tags = [
+        dict(attrs={'class': ['titulo_bajada', 'nota_imagen_container', 'nota_content']}),
+    ]
+
+    remove_tags = [
+        dict(name=['meta', 'base', 'link', 'iframe', 'embed', 'object']),
+        dict(attrs={'class': ['category_container']}),
+    ]
+
+    remove_attributes = ['style', 'font']
+
+    no_stylesheets = True
+
+    extra_css = """
+      .nota_imagen_container {
+        font-style: italic;
+        font-size: .9em;
+        margin-bottom: .5em;
+      }
+      .titulo_bajada h1 {
+        line-height: 1em;
+        margin: 0 0 .5em 0;
+      }
+      .titulo_bajada .bajada {
+        font-size: 1em;
+        line-height: 1em;
+        color: #666666;
+        margin: 0 0 1em 0;
+      }
+    """
+
+    # Images on hightlights view
+    def populate_article_metadata(self, article, soup, first):
+      if first and hasattr(self, 'add_toc_thumbnail'):
+        picdiv = soup.find('img')
+        if picdiv is not None:
+          self.add_toc_thumbnail(article, picdiv['src'])
+
+    feeds = [
+        ('Portada', 'https://www.lacapitalmdp.com/feed/'),
+        ('Inter\xe9s General', 'https://www.lacapitalmdp.com/categorias/interes-general/feed/'),
+        ('La Ciudad', 'https://www.lacapitalmdp.com/categorias/la-ciudad/feed/'),
+        ('Gastronom\xeda', 'https://www.lacapitalmdp.com/categorias/gastronomia/feed/'),
+        ('Arte y Espect\xe1culos', 'https://www.lacapitalmdp.com/categorias/espectaculos/feed/'),
+        ('Cartelera', 'http://cartelera.lacapitalmdp.com/feed/'),
+    ]
+
+    def postprocess_html(self, soup, first_fetch):
+        for t in soup.findAll(['a']):
+            t.name = 'strong'
+
+        nonBreakSpace = u'\xa0'
+        for empty in soup.findAll('p', string=nonBreakSpace):
+            empty.extract()
+
+        return soup
