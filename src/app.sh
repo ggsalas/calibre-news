@@ -1,5 +1,8 @@
 #!/bin/bash
 
+source $KINDLE_HOME_DIR/.config.sh
+source $KINDLE_HOME_DIR/src/send-email.sh
+
 getRecipe() {
   mkdir $KINDLE_HOME_DIR/books
 

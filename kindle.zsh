@@ -1,9 +1,7 @@
-source ./.config.sh
-source ./src/send-email.sh
-source ./src/app.sh
+export KINDLE_HOME_DIR="$(dirname "$0")"
+source $KINDLE_HOME_DIR/src/app.sh
 
 alias kindle='getRecipe'
+alias kindle-tr='testRecipe'
+alias kindle-te='testEmail'
 alias kindle-weekly='getRecipe perfil lacapital clarin js politica world'
-
-alias kindle-test-recipe='testRecipe'
-alias kindle-test-email='testEmail'
