@@ -102,14 +102,14 @@ class Clarin(BasicNewsRecipe):
 
 
     feeds = [
-#      (u'Lo Ultimo', u'http://www.clarin.com/rss/lo-ultimo/'),
-#      (u'Politica', u'http://www.clarin.com/rss/politica/'),
-#      (u'Economia', u'https://www.clarin.com/rss/economia/'),
-#      (u'Mundo', u'http://www.clarin.com/rss/mundo/'),
+      (u'Lo Ultimo', u'http://www.clarin.com/rss/lo-ultimo/'),
+      (u'Politica', u'http://www.clarin.com/rss/politica/'),
+      (u'Economia', u'https://www.clarin.com/rss/economia/'),
+      (u'Mundo', u'http://www.clarin.com/rss/mundo/'),
       (u'Opinion', u'https://www.clarin.com/rss/opinion/'),
-#      (u'Cultura', u'https://www.clarin.com/rss/cultura/'),
-#      (u'Espectaculos', u'http://www.clarin.com/rss/espectaculos/'),
-#      (u'Ciudades', u'http://www.clarin.com/rss/ciudades/'),
+      (u'Cultura', u'https://www.clarin.com/rss/cultura/'),
+      (u'Espectaculos', u'http://www.clarin.com/rss/espectaculos/'),
+      (u'Ciudades', u'http://www.clarin.com/rss/ciudades/'),
     ]
 
     def get_browser(self):
