@@ -1,10 +1,15 @@
 #!/bin/bash
 
-source $KINDLE_HOME_DIR/.config.sh
-source $KINDLE_HOME_DIR/src/send-email.sh
+. $KINDLE_HOME_DIR/.config.sh
+. $KINDLE_HOME_DIR/src/send-email.sh
 
 getRecipe() {
-  mkdir $KINDLE_HOME_DIR/books
+  if [ -d books ]; 
+  then 
+     echo "book folder exists"
+  else
+    mkdir $KINDLE_HOME_DIR/books
+  fi
 
   for var in "$@"
   do
