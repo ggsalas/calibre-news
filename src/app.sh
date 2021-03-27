@@ -1,6 +1,6 @@
 #!/bin/bash
 
-. $KINDLE_HOME_DIR/.config.sh
+# . $KINDLE_HOME_DIR/.config.sh
 . $KINDLE_HOME_DIR/src/send-email.sh
 
 getRecipe() {
