@@ -1,4 +1,5 @@
-export KINDLE_HOME_DIR="$PWD"
+export KINDLE_HOME_DIR="$(dirname "$0")"
+source $KINDLE_HOME_DIR/.config.sh
 source $KINDLE_HOME_DIR/src/app.sh
 
 alias kindle='getRecipe'
