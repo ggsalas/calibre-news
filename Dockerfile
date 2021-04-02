@@ -22,3 +22,4 @@ ENV EMAIL_PORT "$EMAIL_PORT"
 RUN chmod +x /home/run.sh /home/entrypoint.sh
 
 ENTRYPOINT /home/entrypoint.sh
+RUN service cron start
