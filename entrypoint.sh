@@ -12,7 +12,7 @@ EMAIL_PASSWORD=$EMAIL_PASSWORD
 EMAIL_RELAY=$EMAIL_RELAY
 EMAIL_ENCRYPTION_METHOD=$EMAIL_ENCRYPTION_METHOD
 EMAIL_PORT=$EMAIL_PORT
-/10 * * * * /home/run.sh >> /var/log/cron.log 2>&1
+50 * * * * /home/run.sh >> /var/log/cron.log 2>&1
 # This extra line makes it a valid cron" > /etc/cron.d/scheduler.txt
 
 chmod 0644 /etc/cron.d/scheduler.txt
