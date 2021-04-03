@@ -2,5 +2,5 @@
 
 echo "KINDLE_HOME_DIR: $KINDLE_HOME_DIR / EMAIL_FROM: $EMAIL_FROM / EMAIL_ENCRYPTION_METHOD: $EMAIL_ENCRYPTION_METHOD / EMAIL_PORT: $EMAIL_PORT" >> /home/text-example.txt
 
-sh $KINDLE_HOME_DIR/kindle.sh perfil
+sh $KINDLE_HOME_DIR/kindle.sh lacapital
 
