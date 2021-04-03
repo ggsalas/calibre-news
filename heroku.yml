@@ -1,5 +1,5 @@
 build:
   docker:
     web: Dockerfile
-  run:
-    web: cron -f
+run:
+  web: cron -f
