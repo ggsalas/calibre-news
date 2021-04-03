@@ -24,6 +24,4 @@ crontab /etc/cron.d/scheduler.txt
 
 crontab -l
 
-cron -f
-
 # sh /home/run.sh
