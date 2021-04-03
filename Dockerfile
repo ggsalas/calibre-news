@@ -23,6 +23,6 @@ ENV EMAIL_PORT "$EMAIL_PORT"
 RUN chmod +x /home/run.sh /home/entrypoint.sh
 
 ENTRYPOINT /home/entrypoint.sh
-# CMD cron && tail -f /var/log/cron.log
+CMD cron && tail -f /var/log/cron.log
 # RUN cron -f
 # CMD [ "crond", "-f"]
