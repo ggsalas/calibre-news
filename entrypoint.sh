@@ -1,6 +1,7 @@
 #!/bin/bash
 
 echo "Docker container has been started"
+echo "$(date)"
 
 touch /etc/cron.d/scheduler.txt
 touch /var/log/cron.log
@@ -13,7 +14,7 @@ EMAIL_PASSWORD=$EMAIL_PASSWORD
 EMAIL_RELAY=$EMAIL_RELAY 
 EMAIL_ENCRYPTION_METHOD=$EMAIL_ENCRYPTION_METHOD 
 EMAIL_PORT=$EMAIL_PORT 
-20 * * * * /home/run.sh >> /var/log/cron.log 2>&1
+55 * * * * /home/run.sh >> /var/log/cron.log 2>&1
 # This extra line makes it a valid cron" > /etc/cron.d/scheduler.txt
 
 chmod 0644 /etc/cron.d/scheduler.txt
@@ -21,8 +22,8 @@ chmod 0644 /etc/cron.d/scheduler.txt
 # Start the run once job.
 crontab /etc/cron.d/scheduler.txt
 
-# crontab -l
+crontab -l
 
-# cron -f
+cron -f
 
 # sh /home/run.sh
