@@ -24,4 +24,4 @@ RUN chmod +x /home/run.sh /home/entrypoint.sh
 
 ENTRYPOINT /home/entrypoint.sh
 # RUN cron -f
-CMD [ "cron", "-f", "-d8" ]
+# CMD [ "crond", "-f"]
