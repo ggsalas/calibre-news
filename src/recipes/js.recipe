@@ -5,12 +5,27 @@ from calibre.web.feeds.news import AutomaticNewsRecipe
 class BasicUserRecipe1616026409(AutomaticNewsRecipe):
     title          = 'JavaScript weekly'
     oldest_article = 7
-    max_articles_per_feed = 100
+    max_articles_per_feed = 50
     auto_cleanup   = True
+    remove_empty_feeds = True
     publication_type = 'newspaper'
 
-    feeds          = [
+    use_embedded_content = True
+
+    compress_news_images = True
+    scale_news_images_to_device = True
+    compress_news_images_max_size = 10  # kB
+    scale_news_images = True
+    handle_gzip = True
+
+    # To get all the data (images)
+    auto_cleanup = False
+
+
+    feeds = [
         ('Dan Abramov', 'https://overreacted.io/rss.xml'),
-        ('Jason Miller', 'https://jasonformat.com/rss/'),
+        ('CSS-tricks', 'https://css-tricks.com/feed/'),
+        ('Javascript Scene', 'https://medium.com/feed/javascript-scene')
+        ('Smashing Magazine', 'https://www.smashingmagazine.com/feed/')
     ]
 
