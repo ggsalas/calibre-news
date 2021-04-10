@@ -58,7 +58,6 @@ class Clarin(BasicNewsRecipe):
       .title .bajada h2 {
         font-size: .9em;
         line-height: .9em;
-        color: #666666;
         margin: 0 0 1em 0;
         font-style: italic;
       }
@@ -82,11 +81,11 @@ class Clarin(BasicNewsRecipe):
     ]
 
     remove_tags = [
-        dict(name=['meta', 'base', 'link', 'iframe', 'embed', 'object']),
-        dict(attrs={'class': ['tags-bar', 'breadcrumb', 'share-bar', 'share', 'sp__SM', 'entry-tags', 'ad-slot', 'content-top-right', 'entry-share', 'entry-tags', 'comments', 'resize-sensor', 'box-related']}),
-        dict(name='div', attrs={'class': lambda x: x and 'r-nota' in x.split()}),
-        dict(attrs={'id': ['relacionadas']}),
-        dict(name='a', attrs={'class':'content-new'})
+      dict(name=['meta', 'base', 'link', 'iframe', 'embed', 'object']),
+      dict(attrs={'class': ['tags-bar', 'breadcrumb', 'share-bar', 'share', 'sp__SM', 'entry-tags', 'ad-slot', 'content-top-right', 'entry-share', 'entry-tags', 'comments', 'resize-sensor', 'box-related']}),
+      dict(name='div', attrs={'class': lambda x: x and 'r-nota' in x.split()}),
+      dict(attrs={'id': ['relacionadas']}),
+      dict(name='a', attrs={'class':'content-new'})
     ]
 
     remove_tags_after = dict(name='div', attrs={'id': 'relacionadas'})

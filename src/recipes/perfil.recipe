@@ -21,16 +21,17 @@ class AdvancedUserRecipe1572824592(BasicNewsRecipe):
     auto_cleanup = False
 
     keep_only_tags = [
-        dict(name='header', class_='articulo-header'),
-        dict(name='figure', class_='figure'),
-        dict(name='div', class_='fecha-autor'),
-        dict(name='div', class_='news-content'),
+        dict(name='header', attrs={'class': 'articulo-header'}),
+        dict(name='figure', attrs={'class': 'figure'}),
+        dict(name='div', attrs={'class': 'autor'}),
+        dict(name='div', attrs={'class': 'news-content'}),
     ]
 
     remove_tags = [
-        dict(name='div', class_='noticias-relacionadas'),
-        dict(name='div', class_='tags'),
-        dict(name='div', class_='social-topsharing')
+        dict(name='div', attrs={'class':'noticias-relacionadas'}),
+        dict(name='div', attrs={'class':'tags'}),
+        dict(name='div', attrs={'class':'social-topsharing'}),
+        dict(name='p', attrs={'class':['fecha-autor', 'autor', 'autor-nota-arriba', 'autor-about']}),
     ]
 
     remove_attributes = ['style', 'font']
@@ -39,19 +40,19 @@ class AdvancedUserRecipe1572824592(BasicNewsRecipe):
 
     extra_css = """
       .articulo-header .hat {
-        line-height: .9em;
-        line-height: .9em;
+        line-height: .7em;
+        line-height: .7em;
         font-weight: bold
       }
       .articulo-header h1 {
-        line-height: 1.1em;
+        line-height: 1em;
         margin: 0 0 .5em 0;
       }
-      .articulo-header h2 {
-        line-height: .7em;
-        line-height: .7em;
-        color: #666666;
+      .articulo-header .headline {
+        font-size: .9em;
+        line-height: .9em;
         margin: 0 0 1em 0;
+        font-style: italic;
       }
       .figcaption {
         font-style: italic;
@@ -68,14 +69,13 @@ class AdvancedUserRecipe1572824592(BasicNewsRecipe):
           self.add_toc_thumbnail(article, picdiv['src'])
 
     feeds = [
-        ('Ultimo momento', 'https://www.perfil.com/feed'),
-        ('Pol\xedtica', 'https://www.perfil.com/feed/politica'),
-        ('Econom\xeda', 'https://www.perfil.com/feed/economia'),
-        ('Internacionales', 'https://www.perfil.com/feed/internacionales'),
+ #       ('Ultimo momento', 'https://www.perfil.com/feed'),
+ #       ('Pol\xedtica', 'https://www.perfil.com/feed/politica'),
+ #       ('Econom\xeda', 'https://www.perfil.com/feed/economia'),
+ #       ('Internacionales', 'https://www.perfil.com/feed/internacionales'),
         ('Opini\xf3n', 'https://www.perfil.com/feed/opinion'),
-        ('Sociedad', 'https://www.perfil.com/feed/sociedad'),
-        ('Espect\xf3culos', 'https://www.perfil.com/feed/espectaculos'),
-        ('Ciencia', 'https://www.perfil.com/feed/ciencia'),
+ #       ('Sociedad', 'https://www.perfil.com/feed/sociedad'),
+ #       ('Ciencia', 'https://www.perfil.com/feed/ciencia'),
     ]
 
     def preprocess_html(self, soup):
