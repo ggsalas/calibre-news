@@ -1,9 +1,13 @@
 #!/bin/bash
 
-# Saturday 
 if [ $(date +%u) -eq 6 ]; then
-  echo "............................. Today is $(date +%u) (saturday)"
-  sh $KINDLE_HOME_DIR/kindle.sh perfil
+  echo ">>>>>>>>>>>>>>>>>>>>> Get Saturday ($(date +%u)) News <<<<<<<<<<<<<<<<<<<<<"
+  sh $KINDLE_HOME_DIR/kindle.sh lacapital js politica world
+
+if [ $(date +%u) -eq 7 ]; then
+  echo ">>>>>>>>>>>>>>>>>>>>> Get Sunday ($(date +%u)) News <<<<<<<<<<<<<<<<<<<<<"
+  sh $KINDLE_HOME_DIR/kindle.sh perfil lacapital clarin
+
 else
-  echo "............................. Today is $(date +%u) (NOT saturday)"
+  echo ">>>>>>>>>>>>>>>>>>>>> No News for today ($(date +%u)) <<<<<<<<<<<<<<<<<<<<<"
 fi

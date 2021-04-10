@@ -9,7 +9,7 @@ WORKDIR /home
 
 ENV PUID=0 
 ENV PGID=0
-ENV TZ=America/Argentina/Buenos_Aires
+# ENV TZ=America/Argentina/Buenos_Aires
 
 ENV KINDLE_HOME_DIR "/home"
 ENV EMAIL_TO "$EMAIL_TO"
