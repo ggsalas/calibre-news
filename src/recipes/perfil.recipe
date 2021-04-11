@@ -69,13 +69,13 @@ class AdvancedUserRecipe1572824592(BasicNewsRecipe):
           self.add_toc_thumbnail(article, picdiv['src'])
 
     feeds = [
- #       ('Ultimo momento', 'https://www.perfil.com/feed'),
- #       ('Pol\xedtica', 'https://www.perfil.com/feed/politica'),
- #       ('Econom\xeda', 'https://www.perfil.com/feed/economia'),
- #       ('Internacionales', 'https://www.perfil.com/feed/internacionales'),
+        ('Ultimo momento', 'https://www.perfil.com/feed'),
+        ('Pol\xedtica', 'https://www.perfil.com/feed/politica'),
+        ('Econom\xeda', 'https://www.perfil.com/feed/economia'),
+        ('Internacionales', 'https://www.perfil.com/feed/internacionales'),
         ('Opini\xf3n', 'https://www.perfil.com/feed/opinion'),
- #       ('Sociedad', 'https://www.perfil.com/feed/sociedad'),
- #       ('Ciencia', 'https://www.perfil.com/feed/ciencia'),
+        ('Sociedad', 'https://www.perfil.com/feed/sociedad'),
+        ('Ciencia', 'https://www.perfil.com/feed/ciencia'),
     ]
 
     def preprocess_html(self, soup):
