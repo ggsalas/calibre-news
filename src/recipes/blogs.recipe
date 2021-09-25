@@ -3,7 +3,7 @@
 from calibre.web.feeds.news import AutomaticNewsRecipe
 
 class BasicUserRecipe1616026409(AutomaticNewsRecipe):
-    title          = 'Dev weekly'
+    title          = 'Blogs weekly'
     oldest_article = 7
     max_articles_per_feed = 50
     auto_cleanup   = True

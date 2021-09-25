@@ -69,7 +69,6 @@ class AdvancedUserRecipe1572824592(BasicNewsRecipe):
           self.add_toc_thumbnail(article, picdiv['src'])
 
     feeds = [
-        ('Ultimo momento', 'https://www.perfil.com/feed'),
         ('Pol\xedtica', 'https://www.perfil.com/feed/politica'),
         ('Econom\xeda', 'https://www.perfil.com/feed/economia'),
         ('Internacionales', 'https://www.perfil.com/feed/internacionales'),
