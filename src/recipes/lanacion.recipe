@@ -1,95 +1,107 @@
-__copyright__ = '2008-2015, Darko Miletic <darko.miletic at gmail.com>'
-'''
-lanacion.com.ar
-'''
+#!/usr/bin/env python
+# vim:fileencoding=utf-8
+from calibre.web.feeds.recipes import BasicNewsRecipe
+from calibre.web.feeds import Feed
 
-from calibre.web.feeds.news import BasicNewsRecipe
-
-
-class Lanacion(BasicNewsRecipe):
-    title = 'La Nacion'
-    __author__ = 'Darko Miletic'
-    description = "lanacion.com - Informacion actualizada las 24 horas, con noticias de Argentina y del mundo"
-    publisher = 'La Nacion S.A.'
-    category = 'news, politics, Argentina'
+class BasicUserRecipe1616026409(AutomaticNewsRecipe):
+    title          = 'La Nacion'
     oldest_article = 1
-    max_articles_per_feed = 50
-    use_embedded_content = False
-    auto_cleanup = False
-    no_stylesheets = True
-    encoding = 'utf8'
-    language = 'es_AR'
-    publication_type = 'newspaper'
+    max_articles_per_feed = 500
+    auto_cleanup   = True
     remove_empty_feeds = True
-    # masthead_url = 'http://www.lanacion.com.ar/_ui/desktop/imgs/layout/logos/ln-home.gif'
-    extra_css = """
-      h1#title {
-        line-height: 1em;
-        margin: 0 0 .5em 0;
-      }
-      .title .volanta {
-        font-size: .5em;
-        margin-bottom: .5em;
-      }
-      .title .bajada h2 {
-        font-size: .9em;
-        line-height: .9em;
-        margin: 0 0 1em 0;
-        font-style: italic;
-      }
-      .figcaption {
-        font-style: italic;
-        font-size: .9em;
-        margin-bottom: .5em;
-      }
-    """
+    publication_type = 'newspaper'
 
-    conversion_options = {
-      'comment': description, 'tags': category, 'publisher': publisher, 'language': language
-    }
+    # Because the feeds have the full content
+    use_embedded_content = True
 
-    keep_only_tags = [
-      dict(name='h1'),
-      dict(name='h2'),
-      # dict(name='img', attrs={'class': 'com-image'}),
-      dict(name='span', attrs={'class': 'mod-date'}),
-      dict(name='div', attrs={'class': 'mod-autor'}),
-      # dict(name='picture', attrs={'class': 'mod-picture'}),
-      # dict(name='figcaption', attrs={'class': 'mod-figcaption'}),
-      dict(name='div', attrs={'class': 'mod-opening'}),
-      dict(name='section' , attrs={'class': 'cuerpo__nota'}),
-    ]
+    # To get all the data (images)
+    auto_cleanup = False
 
-    remove_tags = [
-      dict(name=['meta', 'base', 'link', 'iframe', 'embed', 'object']),
-      dict(attrs={'class': ['mod-share', 'mod-banner', 'mod-video', 'keep-reading', 'box-articles', 'mod-themes', 'mod-trust', 'interest', 'com-partner', 'mod-headersection']}),
-      dict(name='section', attrs={'data-block-name': 'n_otras_noticias'}),
-      dict(name='section', attrs={'data-block-name': 'n_ultimas_noticias'}),
-    ]
+    feeds = [ 'https://www.lanacion.com.ar/arc/outboundfeeds/rss/?outputType=xml' ]
 
+    # ************************************
+    # Break up feed into categories (based on BrianG's code snippet):
+    # ************************************
+    def parse_feeds(self):
+        # Do the "official" parse_feeds first
+        feeds = BasicNewsRecipe.parse_feeds(self)
 
-    feeds = [
-    (u'Politica', u'http://contenidos.lanacion.com.ar/herramientas/rss/categoria_id=30'),
-    (u'Economia', u'http://contenidos.lanacion.com.ar/herramientas/rss/categoria_id=272'),
-    (u'Sociedad', u'http://contenidos.lanacion.com.ar/herramientas/rss/categoria_id=7773'),
-    (u'Buenos Aires', u'http://contenidos.lanacion.com.ar/herramientas/rss/categoria_id=7774'),
-    (u'Opinion', u'http://contenidos.lanacion.com.ar/herramientas/rss/categoria_id=28'),
-    (u'El Mundo', u'http://contenidos.lanacion.com.ar/herramientas/rss/categoria_id=7'),
-    (u'Revista', u'http://contenidos.lanacion.com.ar/herramientas/rss/categoria_id=494'),
-    (u'Enfoques', u'http://contenidos.lanacion.com.ar/herramientas/rss/categoria_id=421'),
-    (u'Comercio Exterior', u'http://contenidos.lanacion.com.ar/herramientas/rss/categoria_id=347'),
-    (u'Turismo', u'http://contenidos.lanacion.com.ar/herramientas/rss/categoria_id=504'),
-    (u'Inmuebles Comerciales', u'http://contenidos.lanacion.com.ar/herramientas/rss/categoria_id=1363'),
-    (u'Comunidad', u'http://contenidos.lanacion.com.ar/herramientas/rss/categoria_id=1344'),
-    (u'adnCultura', u'http://contenidos.lanacion.com.ar/herramientas/rss/categoria_id=6734'),
-    (u'The WSJ Americas', u'http://contenidos.lanacion.com.ar/herramientas/rss/categoria_id=6373')
-    ]
+        politicaArticles = []
+        economiaArticles = []
+        elmundoArticles = []
+        opinionArticles = []
+        lifestyleArticles = []
+        # Loop thru the articles in all feeds to find articles with base categories in it
+        for curfeed in feeds:
+            delList = []
+            for a, curarticle in enumerate(curfeed.articles):
+                if curarticle.url.lower().find('lanacion.com.ar/politica') >= 0:
+                    politicaArticles.append(curarticle)
+                    delList.append(curarticle)
+                elif curarticle.url.lower().find('lanacion.com.ar/economia') >= 0:
+                    economiaArticles.append(curarticle)
+                    delList.append(curarticle)
+                elif curarticle.url.lower().find('lanacion.com.ar/el-mundo') >= 0:
+                    elmundoArticles.append(curarticle)
+                    delList.append(curarticle)
+                elif curarticle.url.lower().find('lanacion.com.ar/opinion') >= 0:
+                    opinionArticles.append(curarticle)
+                    delList.append(curarticle)
+                elif curarticle.url.lower().find('lanacion.com.ar/lifestyle') >= 0:
+                    lifestyleArticles.append(curarticle)
+                    delList.append(curarticle)
+            if len(delList) > 0:
+                for d in delList:
+                    index = curfeed.articles.index(d)
+                    curfeed.articles[index:index + 1] = []
 
-    def get_cover_url(self):
-        soup = self.index_to_soup('http://www.lanacion.com.ar/edicion-impresa')
-        atap = soup.find(attrs={'class': 'tapa'})
-        if atap:
-            li = atap.find('img')
-            if li:
-                return li['src']
-        return None
+        # If there are any of each base category found, create, append a new Feed object
+        if len(politicaArticles) > 0:
+            pfeed = Feed()
+            pfeed.title = 'Politica'
+            pfeed.image_url = None
+            pfeed.oldest_article = 1
+            pfeed.id_counter = len(politicaArticles)
+            # Create a new Feed, add the articles, and append to "official" list of feeds
+            pfeed.articles = politicaArticles[:]
+            feeds.append(pfeed)
+        if len(economiaArticles) > 0:
+            pfeed = Feed()
+            pfeed.title = 'Economia'
+            pfeed.image_url = None
+            pfeed.oldest_article = 1
+            pfeed.id_counter = len(economiaArticles)
+            # Create a new Feed, add the articles, and append to "official" list of feeds
+            pfeed.articles = economiaArticles[:]
+            feeds.append(pfeed)
+        if len(elmundoArticles) > 0:
+            pfeed = Feed()
+            pfeed.title = 'El Mundo'
+            pfeed.image_url = None
+            pfeed.oldest_article = 1
+            pfeed.id_counter = len(elmundoArticles)
+            # Create a new Feed, add the articles, and append to "official" list of feeds
+            pfeed.articles = elmundoArticles[:]
+            feeds.append(pfeed)
+        if len(opinionArticles) > 0:
+            pfeed = Feed()
+            pfeed.title = 'Opinion'
+            pfeed.image_url = None
+            pfeed.oldest_article = 1
+            pfeed.id_counter = len(opinionArticles)
+            # Create a new Feed, add the articles, and append to "official" list of feeds
+            pfeed.articles = opinionArticles[:]
+            feeds.append(pfeed)
+        if len(lifestyleArticles) > 0:
+            pfeed = Feed()
+            pfeed.title = 'Lifestyle'
+            pfeed.image_url = None
+            pfeed.oldest_article = 1
+            pfeed.id_counter = len(lifestyleArticles)
+            # Create a new Feed, add the articles, and append to "official" list of feeds
+            pfeed.articles = lifestyleArticles[:]
+            feeds.append(pfeed)
+
+        if len(feeds) > 1:  # cleanup empty first feed item
+            del feeds[0]
+        return feeds

@@ -1,0 +1,83 @@
+__copyright__ = '2008-2015, Darko Miletic <darko.miletic at gmail.com>'
+'''
+lanacion.com.ar
+'''
+
+from calibre.web.feeds.news import BasicNewsRecipe
+
+
+class Lanacion(BasicNewsRecipe):
+    title = 'La Nacion'
+    description = "lanacion.com - Informacion actualizada las 24 horas, con noticias de Argentina y del mundo"
+    publisher = 'La Nacion S.A.'
+    category = 'news, politics, Argentina'
+    oldest_article = 1
+    max_articles_per_feed = 50
+    use_embedded_content = False
+    encoding = 'utf8'
+    language = 'es_AR'
+    publication_type = 'newspaper'
+    remove_empty_feeds = True
+
+    compress_news_images = True
+    scale_news_images_to_device = True
+    compress_news_images_max_size = 10  # kB
+    scale_news_images = True
+    handle_gzip = True
+
+    # To get all the data (images)
+    auto_cleanup = False
+
+    remove_attributes = ['style', 'font']
+
+    no_stylesheets = True
+
+    extra_css = """
+      h1.com-title {
+        line-height: 1em;
+        margin: 0 0 .5em 0;
+      }
+      h2.com-subhead {
+        font-size: .8em;
+        line-height: .8em;
+        margin: 0 0 1em 0;
+        font-style: italic;
+      }
+      .figcaption {
+        font-style: italic;
+        font-size: .9em;
+        margin-bottom: .5em;
+      }
+    """
+
+    conversion_options = {
+      'comment': description, 'tags': category, 'publisher': publisher, 'language': language
+    }
+
+    keep_only_tags = [
+      dict(name='h1'),
+      dict(name='h2', attrs={'class': 'com-subhead'}),
+      dict(name='span', attrs={'class': 'mod-date'}),
+      dict(name='div', attrs={'class': 'mod-autor'}),
+      dict(name='div', attrs={'class': 'mod-opening'}),
+      dict(name='section' , attrs={'class': 'cuerpo__nota'}),
+    ]
+
+    remove_tags = [
+      dict(name=['meta', 'base', 'link', 'iframe', 'embed', 'object']),
+      dict(attrs={'class': ['mod-share', 'mod-banner', 'mod-video', 'keep-reading', 'box-articles', 'mod-themes', 'mod-trust', 'interest', 'com-partner', 'mod-headersection']}),
+      dict(name='section', attrs={'data-block-name': 'n_otras_noticias'}),
+      dict(name='section', attrs={'data-block-name': 'n_ultimas_noticias'}),
+    ]
+
+
+    feeds = ['https://www.lanacion.com.ar/arc/outboundfeeds/rss/?outputType=xml']
+
+    def get_cover_url(self):
+        soup = self.index_to_soup('http://www.lanacion.com.ar/edicion-impresa')
+        atap = soup.find(attrs={'class': 'tapa'})
+        if atap:
+            li = atap.find('img')
+            if li:
+                return li['src']
+        return None
