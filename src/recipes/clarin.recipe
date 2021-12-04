@@ -73,8 +73,7 @@ class Clarin(BasicNewsRecipe):
     }
 
     keep_only_tags = [
-      dict(name='h1' , attrs={'class': ['title', 'volanta']}),
-      dict(name='div', attrs={'class': 'title'}),
+      dict(name='div', attrs={'class': 'entry-title'}),
       dict(name='p' , attrs={'itemprop': 'author'}),
       dict(name='div', attrs={'id': 'galeria-trigger'}),
       dict(name='div', attrs={'class': 'body-nota'})
@@ -125,9 +124,6 @@ class Clarin(BasicNewsRecipe):
         return br
 
     def preprocess_html(self, soup):
-        for img in soup.findAll(['img']):
-            img['src'] = img['data-small']
-
         for figCaption in soup.findAll(['figcaption']):
             figCaption.name = 'div'
             figCaption['class'] = 'figcaption'

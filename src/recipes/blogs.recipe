@@ -29,5 +29,6 @@ class BasicUserRecipe1616026409(AutomaticNewsRecipe):
         ('Javascript Scene', 'https://medium.com/feed/javascript-scene'),
         ('Smashing Magazine', 'https://www.smashingmagazine.com/feed/'),
         ('Asis', 'https://jorgeasisdigital.com/feed'),
+        ('Cavallo', 'http://www.cavallo.com.ar/feed')
     ]
 
