@@ -9,5 +9,5 @@ elif [ $(date +%u) -eq 7 ]; then
   sh $KINDLE_HOME_DIR/kindle.sh lanacion clarin 
 
 else
-  sh $KINDLE_HOME_DIR/kindle.sh lanacion clarin 
+  echo ">>>>>>>>>>>>>>>>>>>>> No News for today ($(date +%u)) <<<<<<<<<<<<<<<<<<<<<"
 fi

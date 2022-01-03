@@ -55,7 +55,7 @@ class Clarin(BasicNewsRecipe):
         font-size: .5em;
         margin-bottom: .5em;
       }
-      .title .bajada h2 {
+      .bajada h2 {
         font-size: .9em;
         line-height: .9em;
         margin: 0 0 1em 0;
