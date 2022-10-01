@@ -73,21 +73,15 @@ class Clarin(BasicNewsRecipe):
     }
 
     keep_only_tags = [
-      dict(name='div', attrs={'class': 'entry-title'}),
-      dict(name='p' , attrs={'itemprop': 'author'}),
-      dict(name='div', attrs={'id': 'galeria-trigger'}),
-      dict(name='div', attrs={'class': 'body-nota'})
+      dict(name='div', attrs={'class': 'entry-top'}),
+      dict(name='div' , attrs={'class': 'box-author'}),
+      dict(name='article' , attrs={'class': 'entry-body'}),
     ]
 
     remove_tags = [
       dict(name=['meta', 'base', 'link', 'iframe', 'embed', 'object']),
-      dict(attrs={'class': ['tags-bar', 'breadcrumb', 'share-bar', 'share', 'sp__SM', 'entry-tags', 'ad-slot', 'content-top-right', 'entry-share', 'entry-tags', 'comments', 'resize-sensor', 'box-related']}),
-      dict(name='div', attrs={'class': lambda x: x and 'r-nota' in x.split()}),
-      dict(attrs={'id': ['relacionadas']}),
-      dict(name='a', attrs={'class':'content-new'})
+      dict(attrs={'class': ['title-related', 'related']}),
     ]
-
-    remove_tags_after = dict(name='div', attrs={'id': 'relacionadas'})
 
     remove_attributes = ['lang']
 
