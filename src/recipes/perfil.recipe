@@ -22,8 +22,8 @@ class AdvancedUserRecipe1572824592(BasicNewsRecipe):
 
     keep_only_tags = [
         dict(name='header', attrs={'class': 'articulo-header'}),
-        dict(name='figure', attrs={'class': 'figure'}),
-        dict(name='div', attrs={'class': 'autor'}),
+        dict(name='figure', attrs={'class': 'btn-open-gallery'}),
+        dict(name='div', attrs={'class': 'fecha-autor'}),
         dict(name='div', attrs={'class': 'news-content'}),
     ]
 
@@ -31,7 +31,7 @@ class AdvancedUserRecipe1572824592(BasicNewsRecipe):
         dict(name='div', attrs={'class':'noticias-relacionadas'}),
         dict(name='div', attrs={'class':'tags'}),
         dict(name='div', attrs={'class':'social-topsharing'}),
-        dict(name='p', attrs={'class':['fecha-autor', 'autor', 'autor-nota-arriba', 'autor-about']}),
+        dict(name='a', attrs={'class':'viafoura'}),
     ]
 
     remove_attributes = ['style', 'font']
