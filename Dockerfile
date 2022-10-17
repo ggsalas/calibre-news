@@ -20,6 +20,8 @@ ENV EMAIL_RELAY "$EMAIL_RELAY"
 ENV EMAIL_ENCRYPTION_METHOD "$EMAIL_ENCRYPTION_METHOD"
 ENV EMAIL_PORT "$EMAIL_PORT"
 
+EXPOSE $PORT
+
 RUN chmod +x /home/getDailyPublications.sh
 # RUN chmod +x /home/run.sh /home/entrypoint.sh /home/kindle.sh
 
