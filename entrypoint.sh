@@ -14,6 +14,8 @@ EMAIL_PASSWORD=$EMAIL_PASSWORD
 EMAIL_RELAY=$EMAIL_RELAY 
 EMAIL_ENCRYPTION_METHOD=$EMAIL_ENCRYPTION_METHOD 
 EMAIL_PORT=$EMAIL_PORT 
+FTP_USER=$FTP_USER
+FTP_PASSWORD=$FTP_PASSWORD
 30 * * * * /home/run.sh >> /var/log/cron.log 2>&1
 # This extra line makes it a valid cron" > /etc/cron.d/scheduler.txt
 

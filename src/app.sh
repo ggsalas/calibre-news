@@ -1,6 +1,7 @@
 #!/bin/bash
 
 . $KINDLE_HOME_DIR/src/send-email.sh
+. $KINDLE_HOME_DIR/src/send-ftp.sh
 
 getRecipe() {
   if [ -d books ]; 
@@ -13,7 +14,8 @@ getRecipe() {
   for var in "$@"
   do
     ebook-convert $KINDLE_HOME_DIR/src/recipes/$var.recipe $KINDLE_HOME_DIR/books/$var.mobi --output-profile kindle
-    sendEmail $KINDLE_HOME_DIR/books/$var.mobi $var
+    # sendEmail $KINDLE_HOME_DIR/books/$var.mobi $var
+    sendFTP $KINDLE_HOME_DIR/books/$var.mobi $var
   done
 }
 
@@ -26,5 +28,12 @@ testEmail() {
   for var in "$@"
   do
     sendEmail $KINDLE_HOME_DIR/books/$var.mobi $var
+  done
+}
+
+testFTP() {
+  for var in "$@"
+  do
+    sendFTP $KINDLE_HOME_DIR/books/$var.mobi $var
   done
 }

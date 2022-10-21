@@ -47,7 +47,7 @@ class Clarin(BasicNewsRecipe):
     auto_cleanup = False
 
     extra_css = """
-      h1#title {
+      .title h1 {
         line-height: 1em;
         margin: 0 0 .5em 0;
       }
@@ -55,7 +55,7 @@ class Clarin(BasicNewsRecipe):
         font-size: .5em;
         margin-bottom: .5em;
       }
-      .bajada h2 {
+      .title h2 {
         font-size: .9em;
         line-height: .9em;
         margin: 0 0 1em 0;
@@ -94,7 +94,7 @@ class Clarin(BasicNewsRecipe):
 
 
     feeds = [
-      (u'Lo Ultimo', u'http://www.clarin.com/rss/lo-ultimo/'),
+#      (u'Lo Ultimo', u'http://www.clarin.com/rss/lo-ultimo/'),
       (u'Politica', u'http://www.clarin.com/rss/politica/'),
       (u'Economia', u'https://www.clarin.com/rss/economia/'),
       (u'Mundo', u'http://www.clarin.com/rss/mundo/'),
