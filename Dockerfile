@@ -1,7 +1,7 @@
 FROM linuxserver/calibre
 
 RUN apt-get update && apt-get install -y --no-install-recommends -qq\
-  cron 
+ curl 
 
 COPY . /home
 
