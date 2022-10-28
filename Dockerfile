@@ -22,8 +22,6 @@ ENV EMAIL_PORT "$EMAIL_PORT"
 ENV FTP_USER "$FTP_USER"
 ENV FTP_PASSWORD "$FTP_PASSWORD"
 
-EXPOSE $PORT
-
 RUN chmod +x /home/getDailyPublications.sh
 # RUN chmod +x /home/run.sh /home/entrypoint.sh /home/kindle.sh
 
