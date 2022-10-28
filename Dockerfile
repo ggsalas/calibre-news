@@ -1,7 +1,7 @@
 FROM linuxserver/calibre
 
 RUN apt-get update && apt-get install -y --no-install-recommends -qq\
- curl 
+ curl neovim
 
 COPY . /home
 
@@ -19,6 +19,8 @@ ENV EMAIL_PASSWORD "$EMAIL_PASSWORD"
 ENV EMAIL_RELAY "$EMAIL_RELAY"
 ENV EMAIL_ENCRYPTION_METHOD "$EMAIL_ENCRYPTION_METHOD"
 ENV EMAIL_PORT "$EMAIL_PORT"
+ENV FTP_USER "$FTP_USER"
+ENV FTP_PASSWORD "$FTP_PASSWORD"
 
 EXPOSE $PORT
 
