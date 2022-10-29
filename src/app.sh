@@ -14,7 +14,6 @@ getRecipe() {
   for var in "$@"
   do
     ebook-convert $KINDLE_HOME_DIR/src/recipes/$var.recipe $KINDLE_HOME_DIR/books/$var.mobi --output-profile kindle
-    # sendEmail $KINDLE_HOME_DIR/books/$var.mobi $var
     sendFTP $KINDLE_HOME_DIR/books/$var.mobi $var
   done
 }
