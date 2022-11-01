@@ -1,4 +1,4 @@
-FROM linuxserver/calibre
+FROM linuxserver/calibre:6.5.0
 
 RUN apt-get update && apt-get install -y --no-install-recommends -qq\
  curl neovim
