@@ -1,14 +1,14 @@
-FROM linuxserver/calibre:6.5.0
+FROM linuxserver/calibre:5.34.0
 
 RUN apt-get update && apt-get install -y --no-install-recommends -qq\
- curl neovim
+ curl
 
 COPY . /home
 
 WORKDIR /home
 
-# ENV PUID=0 
-# ENV PGID=0
+ENV PUID=0
+ENV PGID=0
 # ENV TZ=America/Argentina/Buenos_Aires
 
 ENV KINDLE_HOME_DIR "/home"
