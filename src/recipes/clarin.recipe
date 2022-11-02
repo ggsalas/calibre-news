@@ -37,8 +37,8 @@ class Clarin(BasicNewsRecipe):
     masthead_url = None
     cover_url = strftime('http://tapas.clarin.com/tapa/%Y/%m/%d/%Y%m%d_thumb.jpg')
 
-    # compress_news_images = True
-    # scale_news_images_to_device = True
+    compress_news_images = True
+    scale_news_images_to_device = True
     # compress_news_images_max_size = 10  # kB
     # scale_news_images = True
     # handle_gzip = True
@@ -61,10 +61,18 @@ class Clarin(BasicNewsRecipe):
         margin: 0 0 1em 0;
         font-style: italic;
       }
+      .fig {
+        width: 100%;
+        height: auto;
+      }
       .figcaption {
         font-style: italic;
         font-size: .9em;
         margin-bottom: .5em;
+      }
+      .author {
+        font-style: italic;
+        font-weight: bold;
       }
     """
 
@@ -75,12 +83,13 @@ class Clarin(BasicNewsRecipe):
     keep_only_tags = [
       dict(name='div', attrs={'class': 'entry-top'}),
       dict(name='div' , attrs={'class': 'box-author'}),
+      dict(name='p' , attrs={'itemprop': 'author'}),
       dict(name='article' , attrs={'class': 'entry-body'}),
     ]
 
     remove_tags = [
       dict(name=['meta', 'base', 'link', 'iframe', 'embed', 'object']),
-      dict(attrs={'class': ['title-related', 'related']}),
+      dict(attrs={'class': ['title-related', 'related', 'bt-expand']}),
     ]
 
     remove_attributes = ['lang']
@@ -94,16 +103,17 @@ class Clarin(BasicNewsRecipe):
 
 
     feeds = [
-#      (u'Lo Ultimo', u'http://www.clarin.com/rss/lo-ultimo/'),
-      (u'Politica', u'http://www.clarin.com/rss/politica/'),
-      (u'Economia', u'https://www.clarin.com/rss/economia/'),
-      (u'Mundo', u'http://www.clarin.com/rss/mundo/'),
-      (u'Opinion', u'https://www.clarin.com/rss/opinion/'),
-      (u'Cultura', u'https://www.clarin.com/rss/cultura/'),
-      (u'Espectaculos', u'http://www.clarin.com/rss/espectaculos/'),
-      (u'Ciudades', u'http://www.clarin.com/rss/ciudades/'),
+     (u'Lo Ultimo', u'http://www.clarin.com/rss/lo-ultimo/'),
+     (u'Politica', u'http://www.clarin.com/rss/politica/'),
+     (u'Economia', u'https://www.clarin.com/rss/economia/'),
+     (u'Mundo', u'http://www.clarin.com/rss/mundo/'),
+     (u'Opinion', u'https://www.clarin.com/rss/opinion/'),
+     (u'Cultura', u'https://www.clarin.com/rss/cultura/'),
+     (u'Espectaculos', u'http://www.clarin.com/rss/espectaculos/'),
+     (u'Ciudades', u'http://www.clarin.com/rss/ciudades/'),
     ]
 
+    
     def get_browser(self):
         br = BasicNewsRecipe.get_browser(self)
         br.open(self.INDEX)
@@ -118,9 +128,23 @@ class Clarin(BasicNewsRecipe):
         return br
 
     def preprocess_html(self, soup):
+        for picture in soup.findAll(['picture']):
+            for img in picture.findAll(['img']):
+              for source in picture.findAll(['source']):
+                img['src'] = source['srcset']
+
+        for picture in soup.findAll(['picture']):
+            for img in picture.findAll(['img']):
+                img['class'] = 'fig'
+                img['width'] = ''
+                img['height'] = ''
+
         for figCaption in soup.findAll(['figcaption']):
             figCaption.name = 'div'
             figCaption['class'] = 'figcaption'
+
+        for author in soup.findAll(['p'], attrs={'itemprop': 'author'}):
+            author['class'] = 'author'
 
         return soup
 
