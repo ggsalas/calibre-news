@@ -1,0 +1,16 @@
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.list {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.item {
+  margin: 0.8em;
+}
+
+.link {
+  text-decoration: none;
+}
