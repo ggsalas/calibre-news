@@ -1,3 +1,4 @@
+html,
 body {
   font-family: Arial, Helvetica, sans-serif;
 }
@@ -8,9 +9,41 @@ body {
 }
 
 .item {
-  margin: 0.8em;
+  display: block;
+  box-sizing: border-box;
+  display: inline-block;
+  padding: 0.8em;
+  border: 1px solid black;
+  margin: 0.8rem 1%;
+  width: 30%;
 }
 
-.link {
-  text-decoration: none;
+.item:link {
+  text-decoration: none !important;
+  color: black;
+  background: white;
+}
+
+.item:visited {
+  color: black;
+  background: grey;
+  border: 5px solid black;
+}
+
+.item:hover,
+.item:active {
+  color: white;
+  background: black;
+}
+
+.item-title {
+  text-transform: uppercase;
+}
+
+.item-subtitle {
+  font-size: 0.6em;
+}
+
+.item-downloaded {
+  opacity: 0.5;
 }
